@@ -1,5 +1,9 @@
 pytest>=7.0
 flake8>=7.0
 sphinxcontrib-mermaid
+# Packaging tools
+pyinstaller
+nuitka
+
 # Optional dev tools
 black

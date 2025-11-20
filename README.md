@@ -1,3 +1,4 @@
+# (Tasks section moved)
 # Projekt: Audyt Bezpieczeństwa — Skaner Portów
 
 Lekki graficzny skaner portów napisany w Pythonie z wykorzystaniem PySide6 (GUI) oraz Scapy do niskopoziomowego skanowania sieci.
@@ -110,6 +111,27 @@ sudo python "Projekt AB Skaner Portów.py"
 - Rozszerzenie listy sond dla UDP/TCP
 - Lepsza obsługa wykrywania interfejsów i uprawnień
 - Eksport wyników do formatu JSON+schema
+
+## Pakowanie / Tworzenie pliku wykonywalnego (PyInstaller / Nuitka)
+
+W repozytorium znajdują się przykładowe skrypty budowania binarki:
+- `scripts/build_pyinstaller.sh` — tworzy single-file executable przy użyciu PyInstaller.
+- `scripts/build_nuitka.sh` — tworzy stand-alone executable przy użyciu Nuitka.
+
+Przykładowe instrukcje (PyInstaller) — w `.venv`:
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements-dev.txt
+./scripts/build_pyinstaller.sh
+```
+
+Wyniki (binarka) znajdziesz w katalogu `dist/` (dla PyInstaller) lub `dist_nuitka/` (dla Nuitka).
+
+Uwaga: PySide6 i Scapy to ciężkie biblioteki — PyInstaller może wymagać ręcznego dołączania pluginów Qt i dodatkowych zasobów (np. `--collect-all PySide6`). Na macOS możesz potrzebować również podpisać aplikację lub dodać entitlements, jeśli planujesz dystrybucję.
+
+Jeśli chcesz, mogę sprawdzić i dostosować specyfikację PyInstaller (dodatkowe `--add-data` lub `--hidden-import`) do Twojej konfiguracji i platformy.
 
 ## Testy i uruchamianie testów w Visual Studio Code
 
