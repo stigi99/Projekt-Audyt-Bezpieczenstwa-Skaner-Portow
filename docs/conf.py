@@ -10,6 +10,7 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.napoleon',
 ]
+autodoc_mock_imports = ['PySide6', 'scapy']
 templates_path = ['_templates']
 exclude_patterns = []
 html_theme = 'sphinx_rtd_theme'
