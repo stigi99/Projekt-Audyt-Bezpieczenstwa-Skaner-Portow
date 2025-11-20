@@ -188,6 +188,21 @@ cython_debug/
 #  you could uncomment the following to ignore the entire vscode folder
 # .vscode/
 
+# macOS Finder
+.DS_Store
+
+# Dist/dmg or custom dist variant
+dist/dmg/
+dist_nuitka/
+*.dmg
+
+# Nuitka crash and build artifacts
+nuitka-crash-report.xml
+
+# Signing certs / certificates
+*.p12
+*.pem
+
 # Ruff stuff:
 .ruff_cache/
 
