@@ -71,6 +71,9 @@ Przykładowe zrzuty ekranu interfejsu i wyników znajdują się w folderze dokum
 - `docs/_static/screenshots/scan_gui.svg` — główne okno GUI z polami do wprowadzania hostów/portów
 - `docs/_static/screenshots/scan_results.svg` — tabela wyników i podgląd banerów
 
+Docs online: If GitHub Pages is enabled for this repository docs are available under `https://stigi99.github.io/Projekt-Audyt-Bezpieczenstwa-Skaner-Portow` (may take a few minutes after first push to `main` for the workflow to populate `gh-pages`).
+
+
 Możesz zastąpić te pliki swoimi zrzutami ekranu (formatu SVG/PNG) w katalogu `docs/_static/screenshots`.
 
 ## Dokumentacja
