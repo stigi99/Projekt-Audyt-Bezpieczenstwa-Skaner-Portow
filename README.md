@@ -1,2 +1,2 @@
-# Projekt-Audyt-Bezpiecze-stwa-skaner-port-w
+# Projekt Audyt Bezpieczeństwa
 Vibe coded portscanner
