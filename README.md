@@ -111,3 +111,53 @@ sudo python "Projekt AB Skaner Portów.py"
 - Lepsza obsługa wykrywania interfejsów i uprawnień
 - Eksport wyników do formatu JSON+schema
 
+## Testy i uruchamianie testów w Visual Studio Code
+
+Jeżeli chcesz uruchamiać testy bezpośrednio w VS Code (Test Explorer, debugowanie):
+
+1. Upewnij się, że środowisko wirtualne jest aktywne i wybrany interpreter to `.venv`:
+
+```bash
+source .venv/bin/activate
+```
+
+W VS Code: Command Palette -> Python: Select Interpreter -> Wybierz `${workspaceFolder}/.venv/bin/python`.
+
+2. Zainstaluj zależności deweloperskie:
+
+```bash
+python -m pip install -r requirements-dev.txt
+```
+
+3. Skonfiguruj testy w VS Code (jeżeli jeszcze nie wykryto):
+
+- Otwórz Command Palette (Cmd+Shift+P) -> `Python: Configure Tests` -> wybierz `pytest` -> wskaż folder `tests/`.
+
+4. Test Explorer (po prawej) będzie listował znalezione testy. Możesz uruchomić
+  testy z poziomu Test Explorer lub pojedynczy test klikając prawym przyciskiem -> Run Test / Debug Test.
+
+5. Automatyczne wykrywanie testów po zapisaniu pliku zostało włączone (`python.testing.autoTestDiscoverOnSaveEnabled=true`).
+
+6. Debugowanie testów:
+
+- Dla debugowania pojedynczego testu: w Test Explorer -> kliknij `Debug Test` w menu kontekstowym testu.
+- Możesz też użyć przygotowanej konfiguracji w `.vscode/launch.json` („Python: Debug Current Test File (pytest)") — ustaw breakpointy i uruchom tę konfigurację.
+
+7. W terminalu (alternatywnie) uruchom testy:
+
+```bash
+source .venv/bin/activate
+python -m pytest -q
+```
+
+8. Jeśli testy nie są wykrywane / nie uruchamiają się, sprawdź ustawienia w `.vscode/settings.json` (interpreter i `pytestPath`) i upewnij się, że `tests/conftest.py` zawiera odpowiednie stuby dla PySide6/Scapy (to pozwala uruchamiać testy bez instalowania ciężkich bibliotek GUI/systemowych).
+
+Zadania (Tasks):
+
+- Dla szybkiego uruchamiania testów i lintera możesz skorzystać z zadań VS Code:
+  - `Run tests (pytest)` — uruchamia wszystkie testy.
+  - `Run linter (flake8)` — uruchamia linting projektu.
+  Otwórz `Terminal -> Run Task...` i wybierz jedno z zadań.
+
+
+
