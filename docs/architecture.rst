@@ -29,6 +29,6 @@ Opis
 * FileIO — moduły do zapisu wyników (txt, csv, json).
 
 Uwagi dotyczące bezpieczeństwa i uprawnień
------------------------------------------
+============================================================
 
 Skanowanie przy użyciu operacji warstwy 2/3 wymaga uprawnień administratora (root) dla niektórych funkcji. Jeżeli Scapy nie jest dostępny, aplikacja wyłączy opcje raw-socket (TCP SYN/UDP) i wykorzysta technikę "TCP Connect" (sockety jądra).
