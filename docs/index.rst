@@ -17,6 +17,8 @@ Contents:
    usage
    features
    screenshots
+   examples
+   changelog
    api
    advanced
    faq
