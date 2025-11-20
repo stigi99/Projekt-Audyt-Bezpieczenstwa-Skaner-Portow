@@ -17,6 +17,8 @@ Contents:
    usage
    features
    screenshots
+   architecture
+   scan_flow
    examples
    changelog
    api

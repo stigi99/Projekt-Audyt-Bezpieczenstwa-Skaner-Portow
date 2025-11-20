@@ -9,6 +9,7 @@ author = 'Mateusz Misiak'
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.napoleon',
+    'sphinxcontrib.mermaid',
 ]
 autodoc_mock_imports = ['PySide6', 'scapy']
 templates_path = ['_templates']
