@@ -131,6 +131,36 @@ Wyniki (binarka) znajdziesz w katalogu `dist/` (dla PyInstaller) lub `dist_nuitk
 
 Uwaga: PySide6 i Scapy to ciężkie biblioteki — PyInstaller może wymagać ręcznego dołączania pluginów Qt i dodatkowych zasobów (np. `--collect-all PySide6`). Na macOS możesz potrzebować również podpisać aplikację lub dodać entitlements, jeśli planujesz dystrybucję.
 
+### Tworzenie DMG i podpisywanie (macOS)
+
+Skrypty buildujące zawierają opcjonalne flagi do tworzenia DMG i podpisywania binarki:
+
+- `CREATE_DMG=true` — utworzy plik .dmg (tylko macOS)
+- `CI_SIGNING_P12` (& `CI_SIGNING_PASSWORD`) — przy dostarczeniu w formie sekretów (base64-encoded p12), skrypt zaimportuje certyfikat do tymczasowego Keychain i użyje go do podpisania binarki przed utworzeniem DMG
+
+Przykład lokalnego użycia (macOS, bez podpisywania):
+
+```bash
+./scripts/build_pyinstaller.sh
+CREATE_DMG=true ./scripts/build_pyinstaller.sh
+```
+
+Przykład uruchamiania w CI (GitHub Actions) — z importem certyfikatu p12 do Keychain i podpisaniem binarki:
+
+1. Zaszyfruj/zakoduj plik p12 jako base64 (na lokalnej maszynie):
+
+```bash
+base64 my-codesign-cert.p12 > cert.p12.base64
+```
+
+2. Dodaj dwa sekrety do repozytorium na GitHub (`Settings > Secrets`):
+  - `CI_SIGNING_P12` — skopiuj zawartość `cert.p12.base64`
+  - `CI_SIGNING_PASSWORD` — hasło do pliku p12
+
+3. Uruchom workflow/push do `main` — job na macOS zaimportuje p12 i podpisze binarkę/DMG jeśli flagi zostaną ustawione.
+
+Uwaga: aby aplikacja działała poprawnie na macOS, warto też obejrzeć dokumentację Apple dot. entitlements, Notary i zapewnienia zgodności (gatekeeper). Ten projekt zawiera opcję podpisania binarki i DMG. Notary (Apple notarization) nie jest zautomatyzowana w tych skryptach (można rozszerzyć workflow o przesłanie do notarytool).
+
 Jeśli chcesz, mogę sprawdzić i dostosować specyfikację PyInstaller (dodatkowe `--add-data` lub `--hidden-import`) do Twojej konfiguracji i platformy.
 
 ## Testy i uruchamianie testów w Visual Studio Code

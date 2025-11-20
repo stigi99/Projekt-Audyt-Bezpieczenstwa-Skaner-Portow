@@ -1,0 +1,89 @@
+name: macOS package
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_nuitka:
+        description: "Run Nuitka build (macOS, heavy compile)"
+        required: false
+        default: "false"
+  push:
+    branches: [main]
+
+jobs:
+  build-package-macos:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.x
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+
+      - name: Create venv
+        run: python -m venv .venv && source .venv/bin/activate
+
+      - name: Install dependencies
+        run: |
+          source .venv/bin/activate
+          pip install -U pip
+          pip install -r requirements.txt
+          pip install -r requirements-dev.txt
+
+      - name: Build with PyInstaller
+        env:
+          CREATE_DMG: true
+          # If using code signing on CI, set these secrets in repository settings
+          CI_SIGNING_P12: ${{ secrets.CI_SIGNING_P12 }}
+          CI_SIGNING_PASSWORD: ${{ secrets.CI_SIGNING_PASSWORD }}
+        run: |
+          source .venv/bin/activate
+          ./scripts/build_pyinstaller.sh
+
+      - name: Upload DMG artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pab-scanner-macos
+          path: dist/*.dmg
+
+  build-nuitka:
+    if: "${{ github.event.inputs.run_nuitka == 'true' }}"
+    runs-on: macos-latest
+    needs: build-package-macos
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.x
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+
+      - name: Create venv
+        run: python -m venv .venv && source .venv/bin/activate
+
+      - name: Install dependencies
+        run: |
+          source .venv/bin/activate
+          pip install -U pip
+          pip install -r requirements.txt
+          pip install -r requirements-dev.txt
+
+      - name: Build with Nuitka (optional)
+        env:
+          CREATE_DMG: true
+          CI_SIGNING_P12: ${{ secrets.CI_SIGNING_P12 }}
+          CI_SIGNING_PASSWORD: ${{ secrets.CI_SIGNING_PASSWORD }}
+        run: |
+          source .venv/bin/activate
+          ./scripts/build_nuitka.sh
+
+      - name: Upload DMG artifact (Nuitka)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pab-scanner-macos-nuitka
+          path: dist_nuitka/*.dmg

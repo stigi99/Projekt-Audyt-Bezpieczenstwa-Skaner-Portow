@@ -53,25 +53,41 @@ class IP:
 
 class UDP:
     pass
+
+
 class DNS:
     def __init__(self, **kwargs):
         pass
+
+
 class DNSQR:
     def __init__(self, **kwargs):
         pass
+
+
 class NTP:
     def __init__(self, **kwargs):
         pass
+
+
 class SNMP:
     def __init__(self, **kwargs):
         pass
+
+
 def SNMPget(*a, **k):
     return None
+
+
 class SNMPvarbind:
     def __init__(self, **kwargs):
         pass
+
+
 def ASN1_OID(x):
     return x
+
+
 class NBNSQueryRequest:
     def __init__(self, **kwargs):
         pass
@@ -87,6 +103,8 @@ class ICMP:
 
 def srp1(*a, **k):
     return None
+
+
 def sr1(*a, **k):
     return None
 
