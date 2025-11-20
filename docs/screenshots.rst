@@ -6,7 +6,7 @@ Below are example screenshots to help you use the application. Replace the examp
 GUI – Main Window
 ------------------
 
-.. image:: /docs/_static/screenshots/scan_gui.svg
+.. image:: _static/screenshots/scan_gui.svg
    :alt: Main window
    :align: center
    :width: 90%
@@ -14,7 +14,7 @@ GUI – Main Window
 Example – Scan Results
 ----------------------
 
-.. image:: /docs/_static/screenshots/scan_results.svg
+.. image:: _static/screenshots/scan_results.svg
    :alt: Results table
    :align: center
    :width: 90%
