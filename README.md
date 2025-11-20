@@ -64,6 +64,27 @@ python "Projekt AB Skaner Portów.py"
 
 W GUI można: wybrać typ skanowania, wprowadzić hosty (lista, zakresy, CIDR), porty (pojedyncze, zakresy), interfejs, opóźnienie i zapisać wyniki.
 
+## Screenshots
+
+Przykładowe zrzuty ekranu interfejsu i wyników znajdują się w folderze dokumentacji:
+
+- `docs/_static/screenshots/scan_gui.svg` — główne okno GUI z polami do wprowadzania hostów/portów
+- `docs/_static/screenshots/scan_results.svg` — tabela wyników i podgląd banerów
+
+Możesz zastąpić te pliki swoimi zrzutami ekranu (formatu SVG/PNG) w katalogu `docs/_static/screenshots`.
+
+## Dokumentacja
+
+Kompletna dokumentacja znajduje się w folderze `docs/` i jest budowana za pomocą Sphinx. Aby wygenerować HTML lokalnie:
+
+```bash
+cd docs
+make html
+```
+
+Następnie otwórz `docs/_build/html/index.html` w przeglądarce.
+
+
 ## Uprawnienia i bezpieczeństwo
 - Wykonywanie skanów sieci bez zgody właściciela jest nielegalne i nieetyczne. Używaj tego narzędzia wyłącznie w środowiskach testowych lub z explicitną zgodą.
 - Do skanów TCP SYN/UDP Scapy wymagane są uprawnienia root/administrator. W systemach Unix uruchom program jako `sudo` lub ustaw odpowiednie uprawnienia.

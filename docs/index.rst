@@ -15,7 +15,11 @@ Contents:
 
    installation
    usage
+   features
+   screenshots
    api
+   advanced
+   faq
    contributing
 
 Indices and tables
