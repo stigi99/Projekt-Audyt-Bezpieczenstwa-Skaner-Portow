@@ -1,0 +1,5 @@
+pytest>=7.0
+flake8>=7.0
+sphinxcontrib-mermaid
+# Optional dev tools
+black
