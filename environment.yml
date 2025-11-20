@@ -1,0 +1,13 @@
+name: pab-skaner-env
+channels:
+  - defaults
+dependencies:
+  - python=3.10
+  - pip
+  - pip:
+    - scapy
+    - requests
+    - tqdm
+    - click
+    - pytest
+    - black
