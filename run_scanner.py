@@ -5,7 +5,6 @@ spaces when packaging (PyInstaller/Nuitka).
 This file simply imports and runs the main GUI loop present in the project.
 """
 import os
-import sys
 
 ROOT = os.path.abspath(os.path.dirname(__file__))
 MAIN_SCRIPT = os.path.join(ROOT, "Projekt AB Skaner Portów.py")

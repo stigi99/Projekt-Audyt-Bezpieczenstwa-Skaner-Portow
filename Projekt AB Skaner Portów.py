@@ -1,8 +1,36 @@
 import json
 import csv
-from PySide6.QtCore import QThread, Signal, QLocale, QRect, Qt, QMetaObject, QCoreApplication
+from PySide6.QtCore import (
+    QThread,
+    Signal,
+    QLocale,
+    QRect,
+    Qt,
+    QMetaObject,
+    QCoreApplication,
+)
 from PySide6.QtGui import QFont, QCursor, QAction
-from PySide6.QtWidgets import QTabWidget, QLineEdit, QWidget, QLabel, QProgressBar, QCommandLinkButton, QTextEdit, QTabWidget, QPushButton, QApplication, QDialog, QSpinBox, QMessageBox, QFileDialog, QComboBox, QTableWidget, QTableWidgetItem, QHeaderView, QMenu, QCheckBox
+from PySide6.QtWidgets import (
+    QTabWidget,
+    QLineEdit,
+    QWidget,
+    QLabel,
+    QProgressBar,
+    QCommandLinkButton,
+    QTextEdit,
+    QPushButton,
+    QApplication,
+    QDialog,
+    QSpinBox,
+    QMessageBox,
+    QFileDialog,
+    QComboBox,
+    QTableWidget,
+    QTableWidgetItem,
+    QHeaderView,
+    QMenu,
+    QCheckBox,
+)
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import time
 import socket
@@ -24,7 +52,22 @@ except AttributeError:  # Windows
 # Wyłączenie gadatliwych logów Scapy
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 try:
-    from scapy.all import send, IP, UDP, TCP, ICMP, sr1, srp1, DNS, DNSQR, NTP, SNMP, SNMPget, SNMPvarbind, ASN1_OID, NBNSQueryRequest
+    from scapy.all import (
+        send,
+        IP,
+        UDP,
+        TCP,
+        ICMP,
+        srp1,
+        DNS,
+        DNSQR,
+        NTP,
+        SNMP,
+        SNMPget,
+        SNMPvarbind,
+        ASN1_OID,
+        NBNSQueryRequest,
+    )
 except ImportError:
     # Zmienna globalna informująca o braku Scapy
     SCAPY_AVAILABLE = False
@@ -213,7 +256,8 @@ class ScanThread(QThread):
                     parts = banner.split('\x00')
                     if len(parts) > 1:
                         return f"MySQL {parts[1]}"
-            except:
+            except Exception:
+                # Niepowodzenie podczas parsowania bannera MySQL - ignoruj i zwróć domyślną wartość
                 pass
 
         # Dla pozostałych - zwróć pierwszą linię lub pierwsze 100 znaków
@@ -249,7 +293,13 @@ class ScanThread(QThread):
                 startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
 
             # Uruchom polecenie i sprawdź kod wyjścia
-            if subprocess.call(command.split(), stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, startupinfo=startupinfo) == 0:
+            ret = subprocess.call(
+                command.split(),
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                startupinfo=startupinfo,
+            )
+            if ret == 0:
                 return host
 
         except Exception as e:
@@ -1152,7 +1202,7 @@ class Ui_dialog(object):
     def _save_as_txt(self, file_path):
         """Zapisz wyniki jako zwykły tekst"""
         with open(file_path, 'w', encoding='utf-8') as f:
-            f.write(f"Port Scan Results\n")
+            f.write("Port Scan Results\n")
             f.write(f"Host: {self.IpInput.text()}\n")
             f.write(f"Scanned Ports: {self.PortsInput.text()}\n")
             f.write(f"Scan Type: {self.scan.scan_type}\n")
