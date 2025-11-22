@@ -1135,6 +1135,17 @@ class Ui_dialog(object):
             self.OpenTable.scrollToBottom()
             QApplication.processEvents()
 
+            # Jeśli mamy jakiekolwiek wyniki, zezwól na zapis (Save Results)
+            try:
+                if self.open_ports_data:
+                    self.SaveButton.setDisabled(False)
+                    # Włącz filtrowanie tylko dla skanów niskopoziomowych
+                    if self.scan.scan_type in ["TCP SYN Scan", "UDP Scan"]:
+                        self.FilterComboBox.setDisabled(False)
+            except Exception:
+                # W testach GUI mogą być zastępcze obiekty bez metod; ignoruj wtedy
+                pass
+
     def end_scan(self):
         self.ScanButton.setVisible(True)
         self.ScanButton.setDisabled(False)
