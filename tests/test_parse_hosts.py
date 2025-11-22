@@ -40,3 +40,21 @@ def test_parse_hosts_complex(monkeypatch):
     hosts = ui.parse_hosts("example.com 10.0.0.1/30")
     assert "example.com" in hosts
     assert "10.0.0.1" in hosts
+
+
+def test_parse_hosts_range_full(monkeypatch):
+    module = load_main_module()
+    ui = module.Ui_dialog()
+    hosts = ui.parse_hosts("192.168.1.10-192.168.1.12")
+    assert "192.168.1.10" in hosts
+    assert "192.168.1.11" in hosts
+    assert "192.168.1.12" in hosts
+
+
+def test_parse_hosts_range_shorthand_last_octet(monkeypatch):
+    module = load_main_module()
+    ui = module.Ui_dialog()
+    hosts = ui.parse_hosts("192.168.1.10-12")
+    assert "192.168.1.10" in hosts
+    assert "192.168.1.11" in hosts
+    assert "192.168.1.12" in hosts

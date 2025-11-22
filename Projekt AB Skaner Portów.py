@@ -924,6 +924,36 @@ class Ui_dialog(object):
         for part in parts:
             if not part:
                 continue
+            # Obsługa zakresów IP, np. 192.168.1.10-192.168.1.20 lub 192.168.1.10-20 (ostatni oktet)
+            if '-' in part:
+                try:
+                    start_str, end_str = part.split('-', 1)
+                    # Spróbuj sparsować początkowy adres
+                    start_ip = ipaddress.ip_address(start_str)
+                    # Jeśli koniec zawiera kropkę, traktujemy jako pełen adres
+                    if '.' in end_str or ':' in end_str:
+                        end_ip = ipaddress.ip_address(end_str)
+                    else:
+                        # Zakładamy dot-notation last-octet shorthand dla IPv4
+                        if isinstance(start_ip, ipaddress.IPv4Address):
+                            start_parts = start_str.split('.')
+                            start_parts[-1] = end_str
+                            end_ip = ipaddress.IPv4Address('.'.join(start_parts))
+                        else:
+                            # Nie obsługujemy shorthand dla IPv6 - zignoruj
+                            raise ValueError("Unsupported shorthand for IPv6")
+
+                    # Zamień na liczby i iteruj (włącznie)
+                    start_n = int(start_ip)
+                    end_n = int(end_ip)
+                    if start_n > end_n:
+                        start_n, end_n = end_n, start_n
+                    for n in range(start_n, end_n + 1):
+                        targets.add(str(ipaddress.ip_address(n)))
+                    continue
+                except Exception:
+                    # Jeśli nie rozpoznano zakresu, przejdź do normalnego parsowania
+                    pass
             try:
                 # Sprawdź, czy to sieć CIDR lub pojedynczy adres IP
                 network = ipaddress.ip_network(part, strict=False)
