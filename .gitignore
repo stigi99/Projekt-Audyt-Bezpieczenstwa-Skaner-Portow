@@ -220,3 +220,7 @@ nuitka-crash-report.xml
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# Scan result files produced by the scanner - don't commit user-generated output
+scan_results_*
+*.scan_results_*
